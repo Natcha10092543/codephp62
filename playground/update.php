@@ -1,5 +1,21 @@
 <?php
 require_once 'connectdb.php';
+$id_user = " ";
+$username = " ";
+$status = " ";
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+
+
+    $id_user = "";
+    if(isset($_GET["id"]) && $_GET["id"] != ''){
+      $id_user = $_GET["id"];
+      $username = $_GET["username"];
+      $status = $_GET["status"];
+    }else{
+        echo " id is null ";
+    }
+    
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -9,8 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $frmPassword = $_POST["password"];
 
     if ($frmUsername && $frmPassword) {
-        $strSQL = "INSERT INTO user(username,password,status) ";
-        $strSQL .= "VALUES ('" . $frmUsername . "','" . $frmPassword . "',0)";
+        $strSQL = "UPDATE user SET id_user`=[value-1],username`=[value-2],`password`=[value-3],`status`=[value-4] WHERE id_user=".$id_user;
+
         $result = $myconn->query($strSQL);
         if ($result) {
             echo "เพิ่มข้อมูลสำเร็จ";
@@ -32,15 +48,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <form action="insert1.php" method="post">
+    <form action="update.php" method="post">
         <table border="1">
             <tr>
                 <td>username</td>
-                <td><input type="text" name="username" id="username"></td>
+                <td><input type="text" name="username" value="<?=$username?>"></td>
             </tr>
             <tr>
-                <td>password</td>
-                <td><input type="password" name="password" id="password"></td>
+                <td>status</td>
+                <td><input type="text" name="status" value="<?=$status?>"></td>
             </tr>
             <tr>
                 <td colspan="2"><input type="submit" value="save"></td>

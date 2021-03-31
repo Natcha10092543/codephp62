@@ -1,45 +1,48 @@
 <?php
-require_once 'connectdb.php';
+ require_once 'connectdb.php';
+    
+    $strSQL = "SELECT user_id, username, status FROM user WHERE 1";
+    $result = $myconn->query($strSQL);
 
-$statement = "SELECT * FROM user";
-$mysqli_statement = $myconn->query($statement);
-// while ($row = $mysqli_statement->fetch_array()) {
-//     echo $row["id"] . ' ' . $row["username"] . ' ' . $row["status"] . '<br>';
-// }
-?>
-<!DOCTYPE html>
-<html lang="en">
+    
+   ?>
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+       <meta charset="UTF-8">
+       <meta http-equiv="X-UA-Compatible" content="IE=edge">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css
+" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+       <title>Document</title>
+   </head>
+   <body>
+       <table border="1" width="100%">
+         <tr>
+            <td> รหัส </td>
+            <td> ชื่อผู้ใช้</td>
+            <td> สถานะ</td>
+            <td> แก้ไข</td>
+            <td> ลบ</td>
+         <tr>
+    <?php
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+     while ($row = $result->fetch_array()) {
+        // echo $row["username"] . "<br>";
+    ?>
+         <tr>
+            <td> <?php echo $row["user_id"]; ?></td>
+            <td> <?php echo $row["username"]; ?></td>
+            <td> <?php echo $row["status"]; ?></td>
+            <td><a href="update.php?id=<?php echo $row["user_id"]; ?>&username=<?php echo $row["username"]; ?>&status=<?php echo $row["status"]; ?>"><i class="fas fa-pen"></i>
+</a></td>
+            <td><a href="delete.php?id=<?php echo $row["user_id"]; ?>"><i class="fas fa-trash"></i>
+</a></td>
+         <tr>
+     <?php
+    }
+    ?>     
+       </table>
+   </body>
 
-<body>
-    <table style="width: 100%;" border="1">
-        <tr>
-            <td>รหัส</td>
-            <td>ชื้อผู้ใช้</td>
-            <td>สถานะ</td>
-            <td>แก้ไข</td>
-            <td>ลบ</td>
-        </tr>
-        <?php
-        while ($row = $mysqli_statement->fetch_array()) {
-        ?>
-        <tr>
-            <td><?php echo $row["user_id"]?></td>
-            <td><?php echo $row["username"]?></td>
-            <td><?php echo $row["status"]?></td>
-            <td>edit</td>
-            <td><a href="delete.php?id=<?php echo $row["id"]?>">delete</a></td>
-        </tr>
-        <?php
-        }
-        ?>
-    </table>
-</body>
-
-</html>
+   </html>
