@@ -4,7 +4,6 @@
     $strSQL = "SELECT user_id, username, status FROM user WHERE 1";
     $result = $myconn->query($strSQL);
 
-    
    ?>
    <!DOCTYPE html>
    <html lang="en">
